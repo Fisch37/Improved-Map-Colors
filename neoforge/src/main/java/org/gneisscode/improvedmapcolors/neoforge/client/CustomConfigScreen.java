@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -94,7 +94,7 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
                     if (element.name() == null) {
                         list.addSmall(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, Component.empty(), font), element.getWidget(options));
                     } else {
-                        final StringWidget label = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, element.name(), font).alignLeft();
+                        final StringWidget label = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, element.name(), font);
                         label.setTooltip(Tooltip.create(element.tooltip()));
                         list.addSmall(label, element.getWidget(options));
                     }
@@ -117,7 +117,7 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
 
 
         ConfigurationScreen.ConfigurationSectionScreen.Element packPath = createStringValue("packExportPath", CommonConfig::zipFileValidator, this::getPackExportPath, this::setPackExportPath);
-        ConfigurationScreen.ConfigurationSectionScreen.Element packName = createStringValue("packName", ResourceLocation::isValidNamespace, this::getPackName, this::setPackName);
+        ConfigurationScreen.ConfigurationSectionScreen.Element packName = createStringValue("packName", Identifier::isValidNamespace, this::getPackName, this::setPackName);
 
         Button b = Button.builder(Component.translatable("improvedmapcolors.configuration.exportPack.buttonLabel"), (button) -> {
             File zipFile = new File(packExportPath);

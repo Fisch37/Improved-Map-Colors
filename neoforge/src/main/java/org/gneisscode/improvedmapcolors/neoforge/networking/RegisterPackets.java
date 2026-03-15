@@ -37,7 +37,7 @@ public class RegisterPackets {
                 SelectPresetC2SPayload.NEO_PAYLOAD_CODEC,
                 (payload, ctx) ->{
                     if(ctx.player() instanceof ServerPlayer player){
-                        PresetManager.handleSetPresetPacket(payload, player.getServer(), player);
+                        PresetManager.handleSetPresetPacket(payload, player.level().getServer(), player);
                     }
                 }
                 );

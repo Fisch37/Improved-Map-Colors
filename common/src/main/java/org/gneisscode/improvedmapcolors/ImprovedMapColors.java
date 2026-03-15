@@ -14,7 +14,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -39,9 +39,9 @@ import java.util.function.Supplier;
 public final class ImprovedMapColors {
     public static final String MOD_ID = "improvedmapcolors";
 
-    public static final ResourceLocation COLOR_LIST_SYNC_PAYLOAD_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "color_list_sync_payload");
-    public static final ResourceLocation CHOOSE_PRESET_PAYLOAD_ID = resource("choose_preset_payload");
-    public static final ResourceLocation SYNC_PRESET_PAYLOAD_ID = resource("sync_preset_payload");
+    public static final Identifier COLOR_LIST_SYNC_PAYLOAD_ID = Identifier.fromNamespaceAndPath(MOD_ID, "color_list_sync_payload");
+    public static final Identifier CHOOSE_PRESET_PAYLOAD_ID = resource("choose_preset_payload");
+    public static final Identifier SYNC_PRESET_PAYLOAD_ID = resource("sync_preset_payload");
 
 
 
@@ -51,11 +51,11 @@ public final class ImprovedMapColors {
 //    public static final Registrar<>
 
 
-    public static ResourceKey<Block> MAP_BLOCK_KEY = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "map_color_block"));
-    public static final RegistrySupplier<Block> MAP_BLOCK = BLOCKS.register(ResourceLocation.fromNamespaceAndPath(MOD_ID, "map_color_block"), () -> new MapColorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARRIER).mapColor(MapColorBlock.getMapColorFunction()).setId(MAP_BLOCK_KEY)));
+    public static ResourceKey<Block> MAP_BLOCK_KEY = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, "map_color_block"));
+    public static final RegistrySupplier<Block> MAP_BLOCK = BLOCKS.register(Identifier.fromNamespaceAndPath(MOD_ID, "map_color_block"), () -> new MapColorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BARRIER).mapColor(MapColorBlock.getMapColorFunction()).setId(MAP_BLOCK_KEY)));
 
-    public static ResourceKey<Item> MAP_BLOCK_ITEM_KEY = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "map_block_item"));
-    public static final RegistrySupplier<Item> MAP_BLOCK_ITEM = ITEMS.register(ResourceLocation.fromNamespaceAndPath(MOD_ID, "map_block_item"), () -> new MapColorBlockItem(MAP_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).setId(MAP_BLOCK_ITEM_KEY)));
+    public static ResourceKey<Item> MAP_BLOCK_ITEM_KEY = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(MOD_ID, "map_block_item"));
+    public static final RegistrySupplier<Item> MAP_BLOCK_ITEM = ITEMS.register(Identifier.fromNamespaceAndPath(MOD_ID, "map_block_item"), () -> new MapColorBlockItem(MAP_BLOCK.get(), new Item.Properties().rarity(Rarity.EPIC).setId(MAP_BLOCK_ITEM_KEY)));
 
 
     //future release: redoing the map storage system
@@ -69,14 +69,10 @@ public final class ImprovedMapColors {
         PlayerEvent.PLAYER_JOIN.register(PresetManager::syncPresetOnPlayerJoin);
 
         LifecycleEvent.SERVER_LEVEL_LOAD.register(PresetManager::checkAndEnsurePresetPackLoaded);
-
-        CommandRegistrationEvent.EVENT.register(Commands::registerCommands);
-
-
     }
 
-    public static ResourceLocation resource(String path){
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    public static Identifier resource(String path){
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
 

@@ -8,13 +8,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.storage.LevelResource;
 import org.gneisscode.improvedmapcolors.networking.SelectPresetC2SPayload;
@@ -38,12 +40,12 @@ public class PresetManager {
 
     public static StreamCodec<RegistryFriendlyByteBuf, Preset> PRESET_PACKET_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, Preset::getSerializedName,
-            Preset::getFromSeiralizedName
+            Preset::getFromSerializedName
     );
 
     public static StreamCodec<ByteBuf, Preset> NEO_PRESET_PACKET_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, Preset::getSerializedName,
-            Preset::getFromSeiralizedName
+            Preset::getFromSerializedName
     );
 
     public static final Map<Preset, Resource> packDefaults = new HashMap<>();
@@ -106,7 +108,7 @@ public class PresetManager {
 
     public static void handleSetPresetPacket(SelectPresetC2SPayload selectPresetPayload, MinecraftServer server, ServerPlayer player){
 
-        if(player.getPermissionLevel() < 3) return;
+        if(!player.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.ADMINS))) return;
 
         Preset preset = selectPresetPayload.preset();
         if(!preset.enabled) return;
@@ -305,14 +307,14 @@ public class PresetManager {
         REDISTRIBUTED_COLORS("redistributed", resource("preset/redistributed"), false);
 
         public final String presetName;
-        public final ResourceLocation presetLocation;
+        public final Identifier presetLocation;
         public final boolean enabled;
 
-        Preset(String presetName, ResourceLocation presetLocation){
+        Preset(String presetName, Identifier presetLocation){
             this(presetName, presetLocation, true);
         }
 
-        Preset(String presetName, ResourceLocation presetLocation, boolean enabled){
+        Preset(String presetName, Identifier presetLocation, boolean enabled){
             this.presetName = presetName;
             this.presetLocation = presetLocation;
             this.enabled = enabled;
@@ -325,7 +327,7 @@ public class PresetManager {
             return this.presetName;
         }
 
-        public static Preset getFromSeiralizedName(String name){
+        public static Preset getFromSerializedName(String name){
             for(Preset p : Preset.values()){
                 if(p.presetName.equals(name))
                     return p;

@@ -9,3 +9,6 @@
 /fabric/build/classes/java/main/
 /neoforge/.gradle/
 /neoforge/build/
+/common/run/
+/fabric/run/
+/neoforge/run/

@@ -6,7 +6,7 @@ import com.mojang.logging.LogUtils;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -333,9 +333,9 @@ public class CommonConfig /*extends MidnightConfig*/ {
 //
 //        if(split.length < 3){
 //            String id = split[0].split("\\[")[0];
-//            return BuiltInRegistries.BLOCK.containsKey(ResourceLocation.withDefaultNamespace(id));
+//            return BuiltInRegistries.BLOCK.containsKey(Identifier.withDefaultNamespace(id));
 //        }else{
-//            return BuiltInRegistries.BLOCK.containsKey(ResourceLocation.fromNamespaceAndPath(split[0], split[1].split("\\[")[0]));
+//            return BuiltInRegistries.BLOCK.containsKey(Identifier.fromNamespaceAndPath(split[0], split[1].split("\\[")[0]));
 //        }
 //        return true;
 
@@ -622,9 +622,9 @@ public class CommonConfig /*extends MidnightConfig*/ {
     public static BlockState parseBlockStateData(@Nullable String blockStateData, String path, @Nullable String namespace, ArrayList<String> stateStrings){
         boolean hasNamespace = namespace != null;
 
-        ResourceLocation ownerID = hasNamespace
-                ? ResourceLocation.fromNamespaceAndPath(namespace, path)
-                : ResourceLocation.withDefaultNamespace(path);
+        Identifier ownerID = hasNamespace
+                ? Identifier.fromNamespaceAndPath(namespace, path)
+                : Identifier.withDefaultNamespace(path);
 
         Block owner = BuiltInRegistries.BLOCK.getValue(ownerID);
 

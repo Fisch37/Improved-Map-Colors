@@ -1,7 +1,7 @@
 package org.gneisscode.improvedmapcolors.neoforge;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.ReloadableServerResources;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -33,7 +33,7 @@ public class ConfigEvents {
 
     @SubscribeEvent
     public static void reloadConfigListener(AddServerReloadListenersEvent reloadListenersEvent){
-        reloadListenersEvent.addListener(ResourceLocation.fromNamespaceAndPath(MOD_ID, "color_list_reload_listener"), ColorListResourceReloadListener.LISTENER);
-        reloadListenersEvent.addListener(ResourceLocation.fromNamespaceAndPath(MOD_ID, "state_map_reload_listener"), StateMapResourceReloadListener.LISTENER);
+        reloadListenersEvent.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "color_list_reload_listener"), ColorListResourceReloadListener.LISTENER);
+        reloadListenersEvent.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "state_map_reload_listener"), StateMapResourceReloadListener.LISTENER);
     }
 }

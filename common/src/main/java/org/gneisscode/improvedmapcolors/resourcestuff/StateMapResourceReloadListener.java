@@ -3,7 +3,7 @@ package org.gneisscode.improvedmapcolors.resourcestuff;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -27,7 +27,7 @@ public class StateMapResourceReloadListener extends SimpleJsonResourceReloadList
 
     @Override
     protected void apply(
-         Map<ResourceLocation, StateMapHolder> holderMap,
+         Map<Identifier, StateMapHolder> holderMap,
          ResourceManager resourceManager,
          ProfilerFiller profilerFiller
         ) {

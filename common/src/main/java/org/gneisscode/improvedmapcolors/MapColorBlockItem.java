@@ -1,6 +1,6 @@
 package org.gneisscode.improvedmapcolors;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,7 +44,7 @@ public class MapColorBlockItem extends BlockItem {
 
         if(blockState.getBlock() != ImprovedMapColors.MAP_BLOCK.get()) return super.useOn(useOnContext);
 
-        if (!level.isClientSide && player != null && player.canUseGameMasterBlocks()) {
+        if (!level.isClientSide() && player != null && player.canUseGameMasterBlocks()) {
 
 
             BlockState nextState = cycleState(blockState, player.isSecondaryUseActive());

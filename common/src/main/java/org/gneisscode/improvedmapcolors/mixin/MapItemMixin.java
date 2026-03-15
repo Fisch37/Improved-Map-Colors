@@ -15,13 +15,13 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(MapItem.class)
 public class MapItemMixin {
-
     @WrapOperation(
             method = "update",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getMapColor(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/MapColor;")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;getMapColor(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/material/MapColor;"),
+            require = 1
     )
     public MapColor wrapMapColor(BlockState instance, BlockGetter blockGetter, BlockPos blockPos, Operation<MapColor> original){
-
+//        System.out.println("HI!");
         if(!CommonConfig.CONFIG_SPEC.isLoaded()){
             return original.call(instance, blockGetter, blockPos);
         }

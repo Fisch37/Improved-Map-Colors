@@ -67,7 +67,7 @@ public final class ImprovedMapColorsFabric implements ModInitializer {
         if(CommonConfig.CONFIG_SPEC.isLoaded()){
 
             CommonConfig.reloadConfig();
-            
+
         }
 
 

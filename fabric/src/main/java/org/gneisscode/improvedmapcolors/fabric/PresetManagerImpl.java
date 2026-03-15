@@ -15,7 +15,7 @@ public class PresetManagerImpl {
     }
 
     public static void syncPresetOnPlayerJoin(ServerPlayer p) {
-        PresetManager.Preset preset = PresetManager.getServerPreset(p.getServer());
+        PresetManager.Preset preset = PresetManager.getServerPreset(p.level().getServer());
         if(preset == null && PresetManager.selectedPreset == null) return;
         ServerPlayNetworking.send(p, new PresetSyncS2CPacket(preset == null ? PresetManager.selectedPreset : preset));
     }

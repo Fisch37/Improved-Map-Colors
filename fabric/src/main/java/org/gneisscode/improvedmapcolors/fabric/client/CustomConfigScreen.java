@@ -11,7 +11,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.MouseSettingsScreen;
 import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.world.level.WorldDataConfiguration;
 import net.neoforged.fml.config.ModConfig;
@@ -39,19 +39,17 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
     public CustomConfigScreen(Screen parent, ModConfig.Type type, ModConfig modConfig, Component title) {
         super(parent, type, modConfig, title);
     }
-    
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected ConfigurationScreen.ConfigurationSectionScreen rebuild() {
+    @Override
+    protected void addOptions() {
         if (list != null) { // this may be called early, skip and wait for init() then
-            list.children().clear();
             boolean hasUndoableElements = false;
 
 
 
             final List<@Nullable Element> elements = new ArrayList<>();
 
-            Button b = Button.builder(Component.translatable("improvedmapcolors.configuration.presetsButton"), (button) -> {
+            Button presetsButton = Button.builder(Component.translatable("improvedmapcolors.configuration.presetsButton"), (button) -> {
 //                File zipFile = new File(packExportPath);
 //
 //                try{
@@ -63,13 +61,10 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
 //                System.out.println("Do open datapack selection screen here!");
 
                 this.minecraft.setScreen(new PresetOptionsScreen(this, this.options, Component.translatable("improvedmapcolors.configuration.presets.title")));
-
-
-
             }).build();
 
 
-            Element presets = new Element(getTranslationComponent("presets"), getTooltipComponent("presets", null), b, false);
+            Element presets = new Element(getTranslationComponent("presets"), getTooltipComponent("presets", null), presetsButton, false);
 
             elements.add(presets);
 
@@ -110,7 +105,7 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
                     if (element.name() == null) {
                         list.addSmall(new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, Component.empty(), font), element.getWidget(options));
                     } else {
-                        final StringWidget label = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, element.name(), font).alignLeft();
+                        final StringWidget label = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, element.name(), font);
                         label.setTooltip(Tooltip.create(element.tooltip()));
                         list.addSmall(label, element.getWidget(options));
                     }
@@ -123,7 +118,6 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
                 createResetButton();
             }
         }
-        return this;
     }
 
 
@@ -147,7 +141,7 @@ public class CustomConfigScreen extends ConfigurationScreen.ConfigurationSection
     protected Collection<? extends Element> createSyntheticValues() {
 
         Element packPath = createStringValue("packExportPath", CommonConfig::zipFileValidator, this::getPackExportPath, this::setPackExportPath);
-        Element packName = createStringValue("packName", ResourceLocation::isValidNamespace, this::getPackName, this::setPackName);
+        Element packName = createStringValue("packName", Identifier::isValidNamespace, this::getPackName, this::setPackName);
 
         Button b = Button.builder(Component.translatable("improvedmapcolors.configuration.exportPack.buttonLabel"), (button) -> {
             File zipFile = new File(packExportPath);

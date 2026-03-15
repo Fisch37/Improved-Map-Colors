@@ -7,9 +7,7 @@
     "ClientLevelMixin"
   ],
   "mixins": [
-    "BlockBehaviourPropertiesMixin",
     "LevelStorageSourceMixin",
-    "MapColorMixin",
     "MapItemMixin",
     "PrimaryLevelDataMixin",
     "ServerResourceReloadMixin"

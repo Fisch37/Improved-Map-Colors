@@ -46,7 +46,7 @@ public class PresetOptionsScreen extends OptionsSubScreen {
 
                 buttons.put(p, b);
 
-                final StringWidget label = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, Component.translatable("improvedmapcolors.configuration.preset." + p.getSerializedName()), font).alignLeft();
+                final StringWidget label = new StringWidget(Button.DEFAULT_WIDTH, Button.DEFAULT_HEIGHT, Component.translatable("improvedmapcolors.configuration.preset." + p.getSerializedName()), font);
                 label.setTooltip(Tooltip.create(Component.translatable("improvedmapcolors.configuration.preset.%s.tooltip".formatted(p.getSerializedName()))));
                 list.addSmall(label, b);
 

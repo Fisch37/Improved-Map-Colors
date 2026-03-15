@@ -2,7 +2,7 @@ package org.gneisscode.improvedmapcolors.resourcestuff;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -32,7 +32,7 @@ public class ColorListResourceReloadListener extends SimpleJsonResourceReloadLis
 
     @Override
     protected void apply(
-            Map<ResourceLocation, ColorListHolder> holderMap,
+            Map<Identifier, ColorListHolder> holderMap,
             ResourceManager resourceManager,
             ProfilerFiller profilerFiller
         ) {
